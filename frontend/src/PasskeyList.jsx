@@ -66,27 +66,25 @@ const PasskeyList = ({ username }) => {
   };
 
   return (
-<div className="w-full px-4 py-4">
-      <h2 className="text-2xl font-semibold mb-4">Passkeys for {username}</h2>
-      <ul className="space-y-3 mb-4">
+<div>
+      <h2>Passkeys for {username}</h2>
+      <ul>
         {passkeys.map(({ credentialId, name }) => (
           <li
             key={credentialId}
             className="flex justify-between items-center p-4 border rounded shadow-sm bg-white"
           >
             <div>
-              <div className="font-mono text-sm text-gray-700">{credentialId}</div>
-              <div className="text-gray-500">{name || 'Unnamed'}</div>
+              <div>{credentialId}</div>
+              <div>{name || 'Unnamed'}</div>
             </div>
             <div className="space-x-2">
               <button
-                className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
                 onClick={() => setModal({ type: 'rename', credentialId })}
               >
                 Rename
               </button>
               <button
-                className="px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600"
                 onClick={() => setModal({ type: 'delete', credentialId })}
               >
                 Delete
@@ -96,34 +94,30 @@ const PasskeyList = ({ username }) => {
         ))}
       </ul>
       <button
-        className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
         onClick={() => setModal({ type: 'register' })}
       >
         Register a new passkey
       </button>
 
       {modal && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+        <div>
+          <div>
             {modal.type === 'rename' && (
               <div>
-                <h3 className="text-lg font-semibold mb-2">Rename Passkey</h3>
+                <h3>Rename Passkey</h3>
                 <input
                   type="text"
-                  className="w-full border p-2 rounded mb-3"
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   placeholder="New name"
                 />
-                <div className="flex justify-end space-x-2">
+                <div>
                   <button
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                     onClick={handleRename}
                   >
                     Submit
                   </button>
                   <button
-                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
                     onClick={closeModal}
                   >
                     Cancel
@@ -134,19 +128,17 @@ const PasskeyList = ({ username }) => {
 
             {modal.type === 'delete' && (
               <div>
-                <h3 className="text-lg font-semibold mb-2">Confirm Delete</h3>
-                <p className="mb-4 text-gray-700">
+                <h3>Confirm Delete</h3>
+                <p>
                   Are you sure you want to delete <span className="font-mono">{modal.credentialId}</span>?
                 </p>
-                <div className="flex justify-end space-x-2">
+                <div>
                   <button
-                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                     onClick={handleDelete}
                   >
                     Yes, delete
                   </button>
                   <button
-                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
                     onClick={closeModal}
                   >
                     Cancel
@@ -157,16 +149,14 @@ const PasskeyList = ({ username }) => {
 
             {modal.type === 'register' && (
               <div>
-                <h3 className="text-lg font-semibold mb-2">Register New Passkey</h3>
-                <div className="flex justify-end space-x-2">
+                <h3>Register New Passkey</h3>
+                <div>
                   <button
-                    className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                     onClick={handleRegister}
                   >
                     Proceed
                   </button>
                   <button
-                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
                     onClick={closeModal}
                   >
                     Cancel

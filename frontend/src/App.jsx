@@ -9,33 +9,18 @@ function App() {
   const [identifier, setIdentifier] = useState('');
 
   return (
-    <div className="App">
+    <div class="container">
       <header
-        className="App-header"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '10px',
-          backgroundColor: '#282c34',
-          color: 'white',
-          borderBottom: '1px solid white',
-        }}
+        className="header"
       >
         <h1>JS Passkey Demo</h1>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{}}>
           <input
             type="text"
             value={identifier}
             placeholder="username"
             onChange={(e) => setIdentifier(e.target.value)}
             className="search-input"
-            style={{
-              padding: '5px',
-              borderRadius: '4px',
-              border: '1px solid #ccc',
-              width: '50%', // Adjusted to make the input half the size
-            }}
           />
           {username ? (
             <button className="custom-button" onClick={() => setUsername(false)}>
@@ -44,11 +29,11 @@ function App() {
           ) : (
             <LoginButton className="custom-button" identifier={identifier} setUsername={setUsername} />
           )}
-          <RegistrationButton className="custom-button" identifier={identifier} setUsername={setUsername} />
+          <RegistrationButton className="custom-button" identifier={identifier} />
         </div>
-        <h2 style={{ margin: 0 }}>{username ? 'Signed in as ' + username : 'Not signed in'}</h2>
+        <h2>{username ? 'Signed in as ' + username : 'Not signed in'}</h2>
       </header>
-      <main style={{ padding: '20px', color: 'white' }}>
+      <main>
         <h1>Landing Page</h1>
         {username ? <PasskeyList username={username} /> : "Sign in to manage passkeys"}
       </main>
