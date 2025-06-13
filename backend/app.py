@@ -212,6 +212,8 @@ def authenticate_complete():
     if not data or "response" not in data or "session_id" not in data:
         return abort(400, "Invalid request")
     
+    print("Response:")
+    print(data["response"])
     session_id = data["session_id"]
     
     # Get user id, challenge, and matching credential row
