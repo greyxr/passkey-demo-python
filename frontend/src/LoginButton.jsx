@@ -64,6 +64,7 @@ const LoginButton = ({identifier, setUsername}) => {
     async function authenticateFinish(publicKeyCredential, sessionId) {
         console.log("Logging in with server:")
         console.log(sessionId)
+        console.log(publicKeyCredential.toJSON())
         try {
         let response = await fetch('/authenticate/complete', {
         method: 'POST',

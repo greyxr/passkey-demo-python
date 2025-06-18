@@ -220,6 +220,8 @@ def authenticate_complete():
     print("Getting user_id")
     received_credential_id = base64url_to_bytes(data["response"]["id"])
     user_id_string = data["response"]["response"]["userHandle"]
+    print("userId:")
+    print(user_id_string)
     # UserID needs to be turned back to string here
     user_id_bytes = base64.urlsafe_b64decode(user_id_string + '==')
     user_id = uuid.UUID(bytes=user_id_bytes)
