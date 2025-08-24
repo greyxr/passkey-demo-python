@@ -1,0 +1,19 @@
+name: Test Action
+on: [push]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Hello world
+#         run: echo "Hello world"
+
+jobs:
+  run-my-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run my local action
+        uses: greyxr/passkey-cicd
+        with:
+          name: "Test"
