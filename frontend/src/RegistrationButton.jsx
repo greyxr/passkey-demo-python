@@ -4,11 +4,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { base64urlEncode, base64urlToUint8Array } from './util';
 
 const RegistrationButton = ({identifier}) => {
-  const backendUrl = 'http://localhost:5000'
   async function getOptions() {
     // const response = await fetch(backendUrl + '/passkey-challenge/' + identifier);
     try {
-      const response = await fetch(backendUrl + '/register/begin', {
+      const response = await fetch('/register/begin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

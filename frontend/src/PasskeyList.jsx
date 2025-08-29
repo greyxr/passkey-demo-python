@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 const fetchPasskeys = async (username) => {
     try {
-      const response = await fetch(`http://localhost:5000/passkeys/` + username);
+              const response = await fetch(`/passkeys/` + username);
       if (!response.ok) {
         toast.error("Failed to get passkeys from the server");
         return;

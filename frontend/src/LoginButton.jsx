@@ -1,12 +1,14 @@
 import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { base64urlToUint8Array, base64urlEncode } from './util';
+import { useAuth } from './AuthContext';
 
-const LoginButton = ({identifier, setUsername}) => {
+const LoginButton = ({identifier}) => {
+    const { login } = useAuth();
     async function authenticateBegin() {
         try {
             console.log("Awaiting login")
-            const response = await fetch('http://localhost:5000/authenticate/begin', {
+            const response = await fetch('/authenticate/begin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -86,7 +88,7 @@ const LoginButton = ({identifier, setUsername}) => {
           });
         }
     }
-    async function login() {
+    async function handleLogin() {
         const response = await authenticateBegin()
         if (!response) return
         const publicKeyCredential = await getCredentials(response.options)
@@ -96,12 +98,13 @@ const LoginButton = ({identifier, setUsername}) => {
             return
         //   toast.error("Failed to login with server for unknown reasons")
         } else {
-          setUsername(result.identifier)
+          login(result.identifier)
+          navigate('/user');
         }
     }
     return (
         <>
-        <button onClick={login}>
+        <button onClick={handleLogin}>
             Login
         </button>
         <ToastContainer />

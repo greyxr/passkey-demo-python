@@ -52,18 +52,9 @@ def get_db_connection():
 init_db()
 app = Flask(__name__, static_folder='../frontend/dist', static_url_path='/')
 
-# Serve React frontend
-@app.route('/')
-@app.route('/<path:path>')
-def serve_react(path=''):
-    return send_from_directory(app.static_folder, path or 'index.html')
-# CORS(app)
-
 # Set flask session secret key
 SECRET_KEY = os.urandom(24)
 app.secret_key = SECRET_KEY
-
-
 
 @app.route("/register/begin", methods=["POST"])
 def register_begin():
@@ -296,3 +287,21 @@ def get_saved_passkeys(identifier):
     print(passkeys)
     return {"passkeys": passkeys}
 
+
+# Serve React frontend - must be at the end to not interfere with API routes
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve_react(path=''):
+    # Check if the path is for a static file (has an extension)
+    if path and '.' in path:
+        file_path = os.path.join(app.static_folder, path)
+        if os.path.exists(file_path):
+            return send_from_directory(app.static_folder, path)
+    
+    # For all other routes, serve index.html (SPA routing)
+    return send_from_directory(app.static_folder, 'index.html')
+
+# Add a catch-all error handler for 404s to serve index.html
+@app.errorhandler(404)
+def not_found(e):
+    return send_from_directory(app.static_folder, 'index.html')
